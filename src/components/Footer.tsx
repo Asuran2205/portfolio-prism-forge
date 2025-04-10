@@ -16,10 +16,10 @@ const Footer = () => {
           <div className="mt-6 md:mt-0">
             <p className="text-gray-400 text-sm mb-2">Contact</p>
             <a 
-              href="mailto:manojkumaroprofessional.com" 
+              href="mailto:manojkumar0professional.com" 
               className="text-white hover:text-blue-400 transition-colors"
             >
-              manojkumaroprofessional.com
+              manojkumar0professional.com
             </a>
           </div>
           
@@ -27,7 +27,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm mb-2">Follow Me</p>
             <div className="flex space-x-4">
               <a 
-                href="https://github.com/manojkumar" 
+                href="https://github.com/MANOJKUMAR0404/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white hover:text-blue-400 transition-colors"
@@ -37,7 +37,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://linkedin.com/in/manojkumar" 
+                href="https://www.linkedin.com/in/manojkumar-rajendran-909057185/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white hover:text-blue-400 transition-colors"
@@ -55,9 +55,6 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-10 pt-6 text-center">
           <p className="text-gray-400 text-sm">
             © {currentYear} Manojkumar Rajendran. All rights reserved.
-          </p>
-          <p className="text-gray-400 text-sm mt-2 flex items-center justify-center">
-            Made with <Heart className="h-4 w-4 mx-1 text-red-500" /> using React & Tailwind CSS
           </p>
         </div>
       </div>
