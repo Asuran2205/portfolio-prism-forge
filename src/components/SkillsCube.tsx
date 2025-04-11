@@ -4,12 +4,14 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import { Group } from 'three';
 
-const SkillFace = ({ position, rotation, skill, color }: { 
-  position: [number, number, number], 
-  rotation: [number, number, number], 
-  skill: string,
-  color: string
-}) => {
+type SkillFaceProps = { 
+  position: [number, number, number];
+  rotation: [number, number, number];
+  skill: string;
+  color: string;
+};
+
+const SkillFace = ({ position, rotation, skill, color }: SkillFaceProps) => {
   return (
     <group position={position} rotation={rotation}>
       <mesh>

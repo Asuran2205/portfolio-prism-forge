@@ -2,7 +2,7 @@
 import { useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Float, Environment } from '@react-three/drei';
-import { Group } from 'three';
+import { Group, Mesh } from 'three';
 
 function Laptop(props: any) {
   const { scene } = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf');
@@ -22,7 +22,7 @@ function Laptop(props: any) {
 }
 
 function CubeSphere(props: any) {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<Mesh>(null);
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -38,7 +38,7 @@ function CubeSphere(props: any) {
         color="#4361ee" 
         metalness={0.6}
         roughness={0.2}
-        wireframe 
+        wireframe
       />
     </mesh>
   );
