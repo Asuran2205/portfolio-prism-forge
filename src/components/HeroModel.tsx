@@ -1,18 +1,18 @@
 
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Float, Environment } from '@react-three/drei';
+import { OrbitControls, useGLTF, Float, Environment, MeshDistortMaterial, Sphere, Torus, TorusKnot } from '@react-three/drei';
 import { Group, Mesh } from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-// Remove any data-lov attributes from 3D components
-function Laptop(props: {[key: string]: any}) {
-  const { scene } = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf');
+// Futuristic Hologram Component
+function FuturisticHologram(props: {[key: string]: any}) {
   const groupRef = useRef<Group>(null);
-
+  
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.15;
+      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.2;
+      groupRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.2) * 0.1;
     }
   });
 
@@ -21,7 +21,41 @@ function Laptop(props: {[key: string]: any}) {
   
   return (
     <group ref={groupRef} position={position} rotation={rotation} scale={scale}>
-      <primitive object={scene} scale={0.6} position={[0, -1, 0]} />
+      {/* Central sphere */}
+      <mesh position={[0, 0, 0]}>
+        <sphereGeometry args={[0.7, 32, 32]} />
+        <MeshDistortMaterial 
+          color="#4361ee" 
+          distort={0.4}
+          speed={2}
+          metalness={1}
+          roughness={0.2}
+          emissive="#4361ee"
+          emissiveIntensity={0.5}
+        />
+      </mesh>
+      
+      {/* Orbiting torus */}
+      <Torus args={[1.2, 0.08, 16, 60]} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <meshStandardMaterial 
+          color="#60efff" 
+          emissive="#60efff"
+          emissiveIntensity={0.5}
+          metalness={1}
+          roughness={0.2}
+        />
+      </Torus>
+      
+      {/* Complex shape */}
+      <TorusKnot args={[0.3, 0.1, 64, 8]} position={[0, 1.2, 0]}>
+        <meshStandardMaterial 
+          color="#ff3d81" 
+          emissive="#ff3d81"
+          emissiveIntensity={0.7}
+          metalness={1}
+          roughness={0.2}
+        />
+      </TorusKnot>
     </group>
   );
 }
@@ -42,9 +76,11 @@ function CubeSphere(props: {[key: string]: any}) {
   return (
     <mesh ref={meshRef} position={position} rotation={rotation} scale={scale}>
       <sphereGeometry args={[0.7, 16, 16]} />
-      <meshStandardMaterial 
+      <MeshDistortMaterial 
         color="#4361ee" 
-        metalness={0.6}
+        speed={4}
+        distort={0.3}
+        metalness={0.8}
         roughness={0.2}
         wireframe
       />
@@ -56,14 +92,15 @@ export const HeroModel = () => {
   const isMobile = useIsMobile();
   
   return (
-    <div className="h-[280px] sm:h-[320px] lg:h-[380px] w-full rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="h-[280px] sm:h-[320px] lg:h-[380px] w-full rounded-xl overflow-hidden bg-gradient-to-br from-blue-900/10 to-indigo-900/10">
       <Canvas camera={{ position: [0, 0, isMobile ? 12 : 10], fov: isMobile ? 35 : 25 }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <directionalLight position={[-10, -10, -5]} intensity={0.5} />
+        <ambientLight intensity={0.2} />
+        <directionalLight position={[10, 10, 5]} intensity={1} color="#60efff" />
+        <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#ff3d81" />
+        <pointLight position={[0, 0, 0]} intensity={1} color="#4361ee" />
         
         <Float speed={1.5} rotationIntensity={0.5} floatIntensity={isMobile ? 1 : 1.5}>
-          <Laptop position={[0, 0, 0]} scale={isMobile ? 0.8 : 1} />
+          <FuturisticHologram position={[0, 0, 0]} scale={isMobile ? 0.8 : 1} />
         </Float>
         
         {!isMobile && (
@@ -79,7 +116,7 @@ export const HeroModel = () => {
           minPolarAngle={Math.PI / 3}
           maxPolarAngle={Math.PI / 2.2}
         />
-        <Environment preset="city" />
+        <Environment preset="night" />
       </Canvas>
     </div>
   );

@@ -1,4 +1,3 @@
-
 import { ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
@@ -97,8 +96,8 @@ const Hero = () => {
               </Button>
             </div>
           </div>
-          <div className="lg:w-1/2 mt-8 lg:mt-0 animate-fade-in [animation-delay:0.5s] opacity-0">
-            <div className="glass-card p-6 lg:p-8 relative card-3d shadow-2xl bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl">
+          <div className="lg:w-1/2 w-full mt-8 lg:mt-0 animate-fade-in [animation-delay:0.5s] opacity-0">
+            <div className="glass-card p-6 lg:p-8 relative card-3d shadow-2xl bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-500/20">
               <HeroModel />
               
               <div className="mt-6">
