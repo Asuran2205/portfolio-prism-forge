@@ -28,7 +28,7 @@ const SkillFace = ({ position, rotation, skill, color }: SkillFaceProps) => {
         <boxGeometry args={[2, 2, 0.1]} />
         <MeshWobbleMaterial 
           color={color} 
-          transparent 
+          transparent={true}
           opacity={0.9} 
           factor={0.1}
           speed={2}
@@ -68,7 +68,7 @@ const RotatingCube = () => {
       <SkillFace position={[0, 0, 1]} rotation={[0, 0, 0]} skill="React" color="#61DAFB" />
       <SkillFace position={[0, 0, -1]} rotation={[0, Math.PI, 0]} skill="Django" color="#092E20" />
       <SkillFace position={[1, 0, 0]} rotation={[0, Math.PI / 2, 0]} skill="Python" color="#3776AB" />
-      <SkillFace position={[-1, 0, 0]} rotation={[0, -Math.PI / 2, 0]} skill="JS" color="#F7DF1E" />
+      <SkillFace position={[-1, 0, a0]} rotation={[0, -Math.PI / 2, 0]} skill="JS" color="#F7DF1E" />
       <SkillFace position={[0, 1, 0]} rotation={[-Math.PI / 2, 0, 0]} skill="HTML" color="#E34F26" />
       <SkillFace position={[0, -1, 0]} rotation={[Math.PI / 2, 0, 0]} skill="CSS" color="#1572B6" />
 
