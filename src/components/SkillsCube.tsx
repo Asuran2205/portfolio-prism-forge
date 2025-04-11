@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import { Group } from 'three';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 type SkillFaceProps = { 
   position: [number, number, number];
@@ -55,9 +56,11 @@ const RotatingCube = () => {
 };
 
 const SkillsCube = () => {
+  const isMobile = useIsMobile();
+
   return (
-    <div className="h-[300px] w-full rounded-xl overflow-hidden bg-gradient-to-br from-gray-900 to-indigo-900">
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+    <div className="h-[250px] sm:h-[280px] md:h-[300px] w-full rounded-xl overflow-hidden bg-gradient-to-br from-gray-900 to-indigo-900">
+      <Canvas camera={{ position: [0, 0, isMobile ? 6 : 5], fov: isMobile ? 60 : 50 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
         <RotatingCube />
@@ -65,7 +68,7 @@ const SkillsCube = () => {
           enableZoom={false}
           enablePan={false}
           autoRotate
-          autoRotateSpeed={0.5}
+          autoRotateSpeed={isMobile ? 0.3 : 0.5}
         />
       </Canvas>
     </div>

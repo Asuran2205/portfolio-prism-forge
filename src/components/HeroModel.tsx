@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Float, Environment } from '@react-three/drei';
 import { Group, Mesh } from 'three';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Remove any data-lov attributes from 3D components
 function Laptop(props: {[key: string]: any}) {
@@ -52,19 +53,25 @@ function CubeSphere(props: {[key: string]: any}) {
 }
 
 export const HeroModel = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="h-[320px] lg:h-[380px] w-full rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
-      <Canvas camera={{ position: [0, 0, 10], fov: 25 }}>
+    <div className="h-[280px] sm:h-[320px] lg:h-[380px] w-full rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
+      <Canvas camera={{ position: [0, 0, isMobile ? 12 : 10], fov: isMobile ? 35 : 25 }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <directionalLight position={[-10, -10, -5]} intensity={0.5} />
         
-        <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1.5}>
-          <Laptop position={[0, 0, 0]} />
+        <Float speed={1.5} rotationIntensity={0.5} floatIntensity={isMobile ? 1 : 1.5}>
+          <Laptop position={[0, 0, 0]} scale={isMobile ? 0.8 : 1} />
         </Float>
         
-        <CubeSphere position={[2, 1, -2]} />
-        <CubeSphere position={[-2.5, 1, -1]} scale={0.6} />
+        {!isMobile && (
+          <>
+            <CubeSphere position={[2, 1, -2]} />
+            <CubeSphere position={[-2.5, 1, -1]} scale={0.6} />
+          </>
+        )}
         
         <OrbitControls 
           enableZoom={false}
