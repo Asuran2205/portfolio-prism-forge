@@ -1,12 +1,19 @@
 
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Float, Environment, MeshDistortMaterial, Sphere, Torus, TorusKnot } from '@react-three/drei';
+import { OrbitControls, Float, Environment, MeshDistortMaterial, Sphere, Torus, TorusKnot } from '@react-three/drei';
 import { Group, Mesh } from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
 
+// Type definition for component props
+type ThreeDObjectProps = {
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+  scale?: number | [number, number, number];
+}
+
 // Futuristic Hologram Component
-function FuturisticHologram(props: {[key: string]: any}) {
+function FuturisticHologram({ position, rotation, scale }: ThreeDObjectProps) {
   const groupRef = useRef<Group>(null);
   
   useFrame((state) => {
@@ -15,9 +22,6 @@ function FuturisticHologram(props: {[key: string]: any}) {
       groupRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.2) * 0.1;
     }
   });
-
-  // Clean up props by extracting only the ones needed for the group
-  const { position, rotation, scale } = props;
   
   return (
     <group ref={groupRef} position={position} rotation={rotation} scale={scale}>
@@ -60,7 +64,7 @@ function FuturisticHologram(props: {[key: string]: any}) {
   );
 }
 
-function CubeSphere(props: {[key: string]: any}) {
+function CubeSphere({ position, rotation, scale }: ThreeDObjectProps) {
   const meshRef = useRef<Mesh>(null);
   
   useFrame((state, delta) => {
@@ -69,9 +73,6 @@ function CubeSphere(props: {[key: string]: any}) {
       meshRef.current.rotation.y += delta * 0.3;
     }
   });
-
-  // Clean up props by extracting only the ones needed for the mesh
-  const { position, rotation, scale } = props;
 
   return (
     <mesh ref={meshRef} position={position} rotation={rotation} scale={scale}>
