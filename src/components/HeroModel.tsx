@@ -1,10 +1,11 @@
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Float, Environment } from '@react-three/drei';
 import { Group, Mesh } from 'three';
 
-function Laptop(props: any) {
+// Remove any data-lov attributes from 3D components
+function Laptop(props: {[key: string]: any}) {
   const { scene } = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf');
   const groupRef = useRef<Group>(null);
 
@@ -14,14 +15,17 @@ function Laptop(props: any) {
     }
   });
 
+  // Clean up props by extracting only the ones needed for the group
+  const { position, rotation, scale } = props;
+  
   return (
-    <group ref={groupRef} {...props}>
+    <group ref={groupRef} position={position} rotation={rotation} scale={scale}>
       <primitive object={scene} scale={0.6} position={[0, -1, 0]} />
     </group>
   );
 }
 
-function CubeSphere(props: any) {
+function CubeSphere(props: {[key: string]: any}) {
   const meshRef = useRef<Mesh>(null);
   
   useFrame((state, delta) => {
@@ -31,8 +35,11 @@ function CubeSphere(props: any) {
     }
   });
 
+  // Clean up props by extracting only the ones needed for the mesh
+  const { position, rotation, scale } = props;
+
   return (
-    <mesh ref={meshRef} {...props}>
+    <mesh ref={meshRef} position={position} rotation={rotation} scale={scale}>
       <sphereGeometry args={[0.7, 16, 16]} />
       <meshStandardMaterial 
         color="#4361ee" 
