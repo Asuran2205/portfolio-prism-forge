@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
 
 @tailwind base;
@@ -190,6 +191,15 @@
   transform: rotateY(10deg) rotateX(10deg);
 }
 
+/* Project 3D card effects */
+.project-3d {
+  perspective: 1000px;
+}
+
+.project-3d:hover {
+  z-index: 10;
+}
+
 /* Animated background */
 .animated-bg {
   background: linear-gradient(-45deg, #EEF2FF, #E0E7FF, #DBEAFE, #EFF6FF);
@@ -217,4 +227,31 @@ section + section {
 
 .project-card .card-content {
   flex: 1;
+}
+
+/* Particle animation */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+}
+
+@keyframes particle-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) translateX(var(--random-x));
+  }
+}
+
+.particle {
+  animation: particle-animation 3s ease-in-out infinite;
 }

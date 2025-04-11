@@ -2,10 +2,11 @@
 import { Github, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Projects = () => {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -26,6 +27,30 @@ const Projects = () => {
       });
     };
   }, []);
+
+  const handleCardMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const card = projectRefs.current[index];
+    if (!card) return;
+    
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+  
+  const handleCardLeave = (index: number) => {
+    const card = projectRefs.current[index];
+    if (!card) return;
+    
+    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+  };
 
   const projects = [
     {
@@ -67,8 +92,11 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="py-20 bg-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 rounded-full bg-blue-50 filter blur-3xl opacity-70"></div>
+      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-64 h-64 rounded-full bg-purple-50 filter blur-3xl opacity-70"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <h2 className="section-heading">Projects</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
@@ -76,17 +104,21 @@ const Projects = () => {
             <div
               key={index}
               ref={(el) => (projectRefs.current[index] = el)}
-              className="reveal"
+              className="reveal project-3d"
+              onMouseMove={(e) => handleCardMove(e, index)}
+              onMouseLeave={() => handleCardLeave(index)}
+              style={{ transformStyle: 'preserve-3d', transition: 'transform 0.2s ease-out' }}
             >
-              <Card className="overflow-hidden transition-all duration-500 hover:shadow-xl h-full transform hover:scale-105 group">
-                <div className="h-48 overflow-hidden">
+              <Card className="overflow-hidden transition-all duration-500 h-full transform group border-2 border-transparent hover:border-blue-200">
+                <div className="h-48 overflow-hidden" style={{ transform: 'translateZ(20px)' }}>
                   <img 
                     src={project.image} 
                     alt={project.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <CardHeader>
+                <CardHeader style={{ transform: 'translateZ(30px)' }}>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl font-bold">{project.title}</CardTitle>
                     <Badge variant="outline" className="text-xs bg-blue-50">{project.date}</Badge>
@@ -95,7 +127,7 @@ const Projects = () => {
                     {project.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent style={{ transform: 'translateZ(40px)' }}>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {project.technologies.map((tech, i) => (
                       <Badge 
@@ -108,7 +140,7 @@ const Projects = () => {
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="flex justify-between">
+                <CardFooter className="flex justify-between" style={{ transform: 'translateZ(50px)' }}>
                   <a
                     href={project.github}
                     target="_blank"

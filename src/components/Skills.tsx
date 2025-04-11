@@ -2,6 +2,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useRef } from 'react';
+import SkillsCube from './SkillsCube';
 
 const Skills = () => {
   const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -53,6 +54,32 @@ const Skills = () => {
     <section id="skills" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <h2 className="section-heading">Skills & Expertise</h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div className="lg:col-span-1">
+            <SkillsCube />
+          </div>
+          <div className="lg:col-span-2">
+            <div className="glass-card p-6 h-full flex items-center">
+              <div>
+                <h3 className="text-2xl font-bold mb-4 text-gray-800">Technical Proficiency</h3>
+                <p className="text-gray-600 mb-6">
+                  With expertise in full-stack development using React, Django, and Python, 
+                  I specialize in creating responsive, user-friendly applications. 
+                  My background in 3D design and VFX animation complements my development skills, 
+                  allowing me to build visually stunning digital experiences.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["React", "Django", "Python", "JavaScript", "3D Design"].map((skill, i) => (
+                    <Badge key={i} className="px-3 py-1 bg-blue-100 text-blue-800 hover:bg-blue-200 transition-all">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <Tabs defaultValue="languages" className="mt-10">
           <TabsList className="flex justify-center mb-8 bg-white p-1 rounded-lg shadow-sm">

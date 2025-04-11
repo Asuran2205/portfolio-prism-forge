@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import resume from '@/assets/Manojkumar_Resume.pdf'
 import logo from '@/assets/images/profile_picture.jpeg'
+import HeroModel from './HeroModel';
+import AnimatedBackground from './AnimatedBackground';
 
 const Hero = () => {
   const [typingText, setTypingText] = useState("");
@@ -42,16 +44,12 @@ const Hero = () => {
   }, [typingText, isDeleting, currentPhraseIndex, phrases]);
 
   return (
-    <section id="home" className="min-h-screen flex items-center relative pt-24 pb-16 bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50">
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-blue-300 filter blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 rounded-full bg-purple-300 filter blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-pink-300 filter blur-3xl"></div>
-      </div>
+    <section id="home" className="min-h-screen flex items-center relative pt-24 pb-16 overflow-hidden">
+      <AnimatedBackground />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          <div className="md:w-1/2 animate-fade-in [animation-delay:0.2s] opacity-0">
+        <div className="flex flex-col lg:flex-row items-center gap-10">
+          <div className="lg:w-1/2 animate-fade-in [animation-delay:0.2s] opacity-0">
             <div className="relative">
               <div className="absolute -top-10 -left-10 w-24 h-24 rounded-full bg-blue-400 opacity-20 animate-pulse"></div>
               <div className="flex items-center mb-8 relative z-10">
@@ -70,7 +68,7 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-700 mb-6 flex items-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-700 mb-6 flex">
               <span className="mr-2">I'm a</span>
               <span className="typing bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent">{typingText}</span>
               <span className="animate-pulse text-purple-600">|</span>
@@ -99,19 +97,17 @@ const Hero = () => {
               </Button>
             </div>
           </div>
-          <div className="md:w-1/2 mt-8 md:mt-0 animate-fade-in [animation-delay:0.5s] opacity-0">
-            <div className="glass-card p-8 relative card-3d shadow-2xl bg-white/40 backdrop-blur-md border border-white/80 rounded-2xl">
-              <div className="absolute -right-6 -top-6 w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold rotate-12">
-                <span>Pro</span>
-              </div>
-              <div className="mb-8">
+          <div className="lg:w-1/2 mt-8 lg:mt-0 animate-fade-in [animation-delay:0.5s] opacity-0">
+            <div className="glass-card p-6 lg:p-8 relative card-3d shadow-2xl bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl">
+              <HeroModel />
+              
+              <div className="mt-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-4">Contact Information</h3>
                 <p className="text-gray-600 py-1">Namakkal, Tamilnadu</p>
                 <p className="text-gray-600 py-1">6383185800</p>
-                <p className="text-gray-600 py-1">manojkumaroprofessional.com</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Professional Links</h3>
+                <p className="text-gray-600 py-1">manojkumar0professional.com</p>
+
+                <h3 className="text-xl font-bold text-gray-800 mt-6 mb-4">Professional Links</h3>
                 <ul className="space-y-3">
                   <li>
                     <a 
