@@ -1,7 +1,7 @@
 
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Html, OrbitControls, MeshWobbleMaterial } from '@react-three/drei';
+import { Html, OrbitControls } from '@react-three/drei';
 import { Group } from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
 

@@ -1,7 +1,7 @@
 
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Float, Environment, MeshDistortMaterial, Torus, TorusKnot } from '@react-three/drei';
+import { OrbitControls, Float, Environment } from '@react-three/drei';
 import { Group, Mesh } from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -38,7 +38,8 @@ function FuturisticHologram({ position, rotation, scale }: ThreeDObjectProps) {
       </mesh>
       
       {/* Orbiting torus */}
-      <Torus args={[1.2, 0.08, 16, 60]} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[1.2, 0.08, 16, 60]} />
         <meshStandardMaterial 
           color="#60efff" 
           emissive="#60efff"
@@ -46,10 +47,11 @@ function FuturisticHologram({ position, rotation, scale }: ThreeDObjectProps) {
           metalness={1}
           roughness={0.2}
         />
-      </Torus>
+      </mesh>
       
       {/* Complex shape */}
-      <TorusKnot args={[0.3, 0.1, 64, 8]} position={[0, 1.2, 0]}>
+      <mesh position={[0, 1.2, 0]}>
+        <torusKnotGeometry args={[0.3, 0.1, 64, 8]} />
         <meshStandardMaterial 
           color="#ff3d81" 
           emissive="#ff3d81"
@@ -57,7 +59,7 @@ function FuturisticHologram({ position, rotation, scale }: ThreeDObjectProps) {
           metalness={1}
           roughness={0.2}
         />
-      </TorusKnot>
+      </mesh>
     </group>
   );
 }
