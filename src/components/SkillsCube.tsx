@@ -40,7 +40,6 @@ const SkillFace = ({ position, rotation, skill, color }: SkillFaceProps) => {
           center
           distanceFactor={10}
           transform
-          occlude
         >
           <div className="flex justify-center items-center w-[100px] h-[100px] text-white font-bold text-lg select-none">
             {skill}
@@ -86,7 +85,7 @@ const RotatingCube = () => {
             <meshStandardMaterial 
               color={i % 2 ? "#61DAFB" : "#F7DF1E"} 
               emissive={i % 2 ? "#61DAFB" : "#F7DF1E"}
-              emissiveIntensity={1}
+              emissiveIntensity={0.5}
             />
           </mesh>
         ))}
