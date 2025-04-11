@@ -1,7 +1,7 @@
 
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Html, OrbitControls, MeshDistortMaterial, MeshWobbleMaterial } from '@react-three/drei';
+import { Html, OrbitControls, MeshWobbleMaterial } from '@react-three/drei';
 import { Group } from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -26,12 +26,10 @@ const SkillFace = ({ position, rotation, skill, color }: SkillFaceProps) => {
     <group position={position} rotation={rotation} ref={groupRef}>
       <mesh>
         <boxGeometry args={[2, 2, 0.1]} />
-        <MeshWobbleMaterial 
+        <meshStandardMaterial 
           color={color} 
           transparent={true}
           opacity={0.9} 
-          factor={0.1}
-          speed={2}
           metalness={0.8}
           roughness={0.2}
           emissive={color}
@@ -85,10 +83,8 @@ const RotatingCube = () => {
             scale={0.1}
           >
             <sphereGeometry args={[1, 16, 16]} />
-            <MeshDistortMaterial 
+            <meshStandardMaterial 
               color={i % 2 ? "#61DAFB" : "#F7DF1E"} 
-              speed={4}
-              distort={0.5} 
               emissive={i % 2 ? "#61DAFB" : "#F7DF1E"}
               emissiveIntensity={1}
             />

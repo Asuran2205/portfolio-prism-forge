@@ -10,7 +10,7 @@ type ThreeDObjectProps = {
   position?: [number, number, number];
   rotation?: [number, number, number];
   scale?: number | [number, number, number];
-}
+};
 
 // Futuristic Hologram Component
 function FuturisticHologram({ position, rotation, scale }: ThreeDObjectProps) {
@@ -28,10 +28,8 @@ function FuturisticHologram({ position, rotation, scale }: ThreeDObjectProps) {
       {/* Central sphere */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[0.7, 32, 32]} />
-        <MeshDistortMaterial 
+        <meshStandardMaterial 
           color="#4361ee" 
-          distort={0.4}
-          speed={2}
           metalness={1}
           roughness={0.2}
           emissive="#4361ee"
@@ -77,13 +75,11 @@ function CubeSphere({ position, rotation, scale }: ThreeDObjectProps) {
   return (
     <mesh ref={meshRef} position={position} rotation={rotation} scale={scale}>
       <sphereGeometry args={[0.7, 16, 16]} />
-      <MeshDistortMaterial 
+      <meshStandardMaterial 
         color="#4361ee" 
-        speed={4}
-        distort={0.3}
+        wireframe
         metalness={0.8}
         roughness={0.2}
-        wireframe
       />
     </mesh>
   );
