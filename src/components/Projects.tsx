@@ -2,11 +2,14 @@
 import { Github, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import Weather_app from '@/assets/images/weather-app.png';
+import renteverything from '@/assets/images/renteverything.png';
+import KidsWebsite from '@/assets/images/KidsWebsite.png';
+import bmw_website from '@/assets/images/bmw_website.png';
 
 const Projects = () => {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -28,39 +31,41 @@ const Projects = () => {
     };
   }, []);
 
-  const handleCardMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
-    const card = projectRefs.current[index];
-    if (!card) return;
-    
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
-    
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  };
-  
-  const handleCardLeave = (index: number) => {
-    const card = projectRefs.current[index];
-    if (!card) return;
-    
-    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-  };
-
   const projects = [
+    {
+      title: "BMW Future Drive",
+      description: "BMW Future Drive is an interactive website showcasing futuristic car concepts, featuring sleek animations, dynamic scrolling, and detailed visual elements. It offers a modern, immersive experience focused on futuristic automotive design.",
+      image: bmw_website,
+      technologies: ["JavaScript", "API Integration", "HTML", "CSS"],
+      github: "https://github.com/Asuran2205/bmw-future-drive",
+      // demo: "https://gemini-clone.example.com",
+      date: "April 2025"
+    },
+    {
+      title: "RentEverthing.Shop",
+      description: "Rent Everything is a responsive landing page for a rental marketplace platform. It includes animated sections, smooth navigation, and an interactive order form that lets users list products for rent. The design focuses on clarity, ease of use, and visual appeal to attract both renters and vendors.",
+      image: renteverything,
+      technologies: ["JavaScript", "API Integration", "HTML", "CSS"],
+      github: "https://renteverythingshop.netlify.app/",
+      // demo: "https://gemini-clone.example.com",
+      date: "April 2025"
+    },
+    {
+      title: "Kids Website",
+      description: "A colorful and interactive website designed for children, featuring animated elements, playful UI, and engaging visuals. It offers an enjoyable browsing experience with smooth navigation and beginner-friendly content.",
+      image: KidsWebsite,
+      technologies: ["FrontEnd App"],
+      github: "https://manojkumar0404.github.io/kids_website/",
+      date: "March 2025"
+    },
     {
       title: "Weather App",
       description: "This is a simple Weather App that allows users to check current weather conditions and a 24-hour forecast for any city. It leverages the WeatherAPI to fetch and display weather data based on user input or current location.",
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&q=80",
+      image: Weather_app,
       technologies: ["JavaScript", "API Integration", "HTML", "CSS"],
-      github: "https://manojkumar0404.github.io/Weather-app/",
+      github: "https://manojkumar0404.github.io/WEATHER-APP/",
       // demo: "https://gemini-clone.example.com",
-      date: "August 2024"
+      date: "Feb 2025"
     },
     {
       title: "Google Gemini Clone",
@@ -92,11 +97,8 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 rounded-full bg-blue-50 filter blur-3xl opacity-70"></div>
-      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-64 h-64 rounded-full bg-purple-50 filter blur-3xl opacity-70"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="projects" className="py-20 bg-white">
+      <div className="container mx-auto px-4">
         <h2 className="section-heading">Projects</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
@@ -104,21 +106,17 @@ const Projects = () => {
             <div
               key={index}
               ref={(el) => (projectRefs.current[index] = el)}
-              className="reveal project-3d"
-              onMouseMove={(e) => handleCardMove(e, index)}
-              onMouseLeave={() => handleCardLeave(index)}
-              style={{ transformStyle: 'preserve-3d', transition: 'transform 0.2s ease-out' }}
+              className="reveal"
             >
-              <Card className="overflow-hidden transition-all duration-500 h-full transform group border-2 border-transparent hover:border-blue-200">
-                <div className="h-48 overflow-hidden" style={{ transform: 'translateZ(20px)' }}>
+              <Card className="overflow-hidden transition-all duration-500 hover:shadow-xl h-full transform hover:scale-105 group">
+                <div className="h-48 overflow-hidden">
                   <img 
                     src={project.image} 
                     alt={project.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <CardHeader style={{ transform: 'translateZ(30px)' }}>
+                <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl font-bold">{project.title}</CardTitle>
                     <Badge variant="outline" className="text-xs bg-blue-50">{project.date}</Badge>
@@ -127,7 +125,7 @@ const Projects = () => {
                     {project.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent style={{ transform: 'translateZ(40px)' }}>
+                <CardContent>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {project.technologies.map((tech, i) => (
                       <Badge 
@@ -140,7 +138,7 @@ const Projects = () => {
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="flex justify-between" style={{ transform: 'translateZ(50px)' }}>
+                <CardFooter className="flex justify-between">
                   <a
                     href={project.github}
                     target="_blank"
