@@ -7,6 +7,7 @@ import Weather_app from '@/assets/images/weather-app.png';
 import renteverything from '@/assets/images/renteverything.png';
 import KidsWebsite from '@/assets/images/KidsWebsite.png';
 import bmw_website from '@/assets/images/bmw_website.png';
+import one_dine from '@/assets/images/one_dine.png';
 
 const Projects = () => {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -32,6 +33,15 @@ const Projects = () => {
   }, []);
 
   const projects = [
+    {
+      title: "One Dine",
+      description: "Experience a world of flavors under one roof. Savor authentic intercontinental cuisine crafted with passion and served with elegance.",
+      image: one_dine,
+      technologies: ["TypeScript","React","Vite"],
+      github: "https://onedine.vercel.app/",
+      // demo: "https://gemini-clone.example.com",
+      date: "May 2025"
+    },
     {
       title: "BMW Future Drive",
       description: "BMW Future Drive is an interactive website showcasing futuristic car concepts, featuring sleek animations, dynamic scrolling, and detailed visual elements. It offers a modern, immersive experience focused on futuristic automotive design.",
