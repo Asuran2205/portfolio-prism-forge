@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -29,15 +30,28 @@ const VideoWorks = () => {
 
   // Convert Instagram and Vimeo URLs to embeddable format
   const getEmbedUrl = (url: string) => {
+    console.log('Original URL:', url);
+    
     if (url.includes('instagram.com')) {
-      // Instagram embed URL format
-      const postId = url.match(/\/p\/([^\/]+)/)?.[1];
-      return postId ? `https://www.instagram.com/p/${postId}/embed/` : url;
+      // Extract post ID from Instagram URL - handle both /p/ and /reel/ formats
+      const postMatch = url.match(/\/(p|reel)\/([^\/\?]+)/);
+      if (postMatch) {
+        const postId = postMatch[2];
+        const embedUrl = `https://www.instagram.com/p/${postId}/embed/`;
+        console.log('Instagram embed URL:', embedUrl);
+        return embedUrl;
+      }
     } else if (url.includes('vimeo.com')) {
       // Vimeo embed URL format
       const videoId = url.match(/vimeo\.com\/(\d+)/)?.[1];
-      return videoId ? `https://player.vimeo.com/video/${videoId}` : url;
+      if (videoId) {
+        const embedUrl = `https://player.vimeo.com/video/${videoId}`;
+        console.log('Vimeo embed URL:', embedUrl);
+        return embedUrl;
+      }
     }
+    
+    console.log('Returning original URL:', url);
     return url;
   };
 
@@ -77,6 +91,7 @@ const VideoWorks = () => {
   ];
 
   const handleVideoClick = (index: number) => {
+    console.log('Video clicked:', index, 'Current playing:', playingVideo);
     if (playingVideo === index) {
       setPlayingVideo(null);
     } else {
@@ -113,6 +128,8 @@ const VideoWorks = () => {
                       allowFullScreen
                       allow="autoplay; encrypted-media"
                       title={video.title}
+                      onLoad={() => console.log('Iframe loaded for video:', index)}
+                      onError={() => console.log('Iframe error for video:', index)}
                     />
                   ) : (
                     <div 
