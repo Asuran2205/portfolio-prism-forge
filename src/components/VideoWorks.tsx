@@ -1,12 +1,10 @@
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Play, Pause } from 'lucide-react';
 
 const VideoWorks = () => {
   const videoRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -90,15 +88,6 @@ const VideoWorks = () => {
     }
   ];
 
-  const handleVideoClick = (index: number) => {
-    console.log('Video clicked:', index, 'Current playing:', playingVideo);
-    if (playingVideo === index) {
-      setPlayingVideo(null);
-    } else {
-      setPlayingVideo(index);
-    }
-  };
-
   return (
     <section id="3d-works" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -114,37 +103,22 @@ const VideoWorks = () => {
               ref={(el) => (videoRefs.current[index] = el)}
               className="reveal"
             >
-              <Card className={`overflow-hidden transition-all duration-500 hover:shadow-xl h-full transform hover:scale-105 group ${
+              <Card className={`overflow-hidden transition-all duration-500 hover:shadow-xl h-full transform hover:scale-105 ${
                 video.orientation === 'vertical' ? 'md:col-span-1' : 'md:col-span-2 lg:col-span-1'
               }`}>
                 <div className={`relative overflow-hidden ${
                   video.orientation === 'vertical' ? 'h-80' : 'h-48'
                 }`}>
-                  {playingVideo === index ? (
-                    <iframe
-                      src={getEmbedUrl(video.url)}
-                      className="w-full h-full"
-                      frameBorder="0"
-                      allowFullScreen
-                      allow="autoplay; encrypted-media"
-                      title={video.title}
-                      onLoad={() => console.log('Iframe loaded for video:', index)}
-                      onError={() => console.log('Iframe error for video:', index)}
-                    />
-                  ) : (
-                    <div 
-                      className="w-full h-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center cursor-pointer group-hover:scale-110 transition-transform duration-700"
-                      onClick={() => handleVideoClick(index)}
-                    >
-                      <div className="text-center text-white">
-                        <Play className="h-16 w-16 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity" />
-                        <p className="text-sm font-medium">Click to Play</p>
-                        <Badge variant="secondary" className="mt-2 bg-white/20 text-white border-white/30">
-                          {video.type}
-                        </Badge>
-                      </div>
-                    </div>
-                  )}
+                  <iframe
+                    src={getEmbedUrl(video.url)}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allowFullScreen
+                    allow="autoplay; encrypted-media"
+                    title={video.title}
+                    onLoad={() => console.log('Iframe loaded for video:', index)}
+                    onError={() => console.log('Iframe error for video:', index)}
+                  />
                 </div>
                 <CardHeader>
                   <div className="flex justify-between items-start">
@@ -163,20 +137,12 @@ const VideoWorks = () => {
                     >
                       {video.orientation}
                     </Badge>
-                    <button
-                      onClick={() => handleVideoClick(index)}
-                      className="text-theme-blue hover:text-theme-indigo flex items-center transition-colors"
+                    <Badge 
+                      variant="secondary" 
+                      className="bg-blue-100 text-blue-800"
                     >
-                      {playingVideo === index ? (
-                        <>
-                          <Pause className="h-4 w-4 mr-1" /> Pause
-                        </>
-                      ) : (
-                        <>
-                          <Play className="h-4 w-4 mr-1" /> Play
-                        </>
-                      )}
-                    </button>
+                      {video.type}
+                    </Badge>
                   </div>
                 </CardContent>
               </Card>
