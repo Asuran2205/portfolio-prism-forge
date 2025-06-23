@@ -46,7 +46,7 @@ const VideoWorks = () => {
     {
       title: "3D Animation Project",
       description: "A stunning 3D animation showcasing modern design principles with fluid motion graphics.",
-      url: "https://www.instagram.com/p/sample1/",
+      url: "https://www.instagram.com/reel/DLClJ_8zbIb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
       type: "Instagram",
       orientation: "vertical",
       category: "Animation"
